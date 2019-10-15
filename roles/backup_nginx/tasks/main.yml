@@ -1,5 +1,12 @@
 ---
 # tasks file for backup_nginx
+- name: "check nginx config file exists"
+  stat:
+    path: '{{ src }}'
+  register: nginx_config
+  
+- debug: 
+    var: "{{ nginx_config.stat.exists }}"
 
 - name: "copy nginx config"
   become: yes
@@ -8,3 +15,5 @@
     dest: '{{ destination }}'
     remote_src: yes
     follow: yes
+  when: nginx_config.stat.exists == true
+  
