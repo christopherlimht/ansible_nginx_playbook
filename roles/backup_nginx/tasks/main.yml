@@ -1,0 +1,9 @@
+---
+# tasks file for backup_nginx
+
+- name: "copy nginx config"
+  become: yes
+  copy:
+    src: /etc/nginx/nginx.conf
+    dest: /etc/nginx/nginx.conf.bak
+    remote_src: yes

@@ -1,0 +1,7 @@
+---
+# handlers file for install_nginx
+- name: start_nginx
+  service:
+    name: nginx
+    state: started
+    debug : "started nginx"

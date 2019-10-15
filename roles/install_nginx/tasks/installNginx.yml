@@ -1,0 +1,29 @@
+---
+# tasks file for install_nginx
+- name: "Install Nginx for CentOS/RedHat"
+  become: yes
+  yum:
+    name: nginx
+    state: present
+  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
+  notify: 
+    - start_nginx
+- name: "Install Nginx for Debian/Ubuntu"
+  apt:
+    name: nginx
+    state: latest
+  when: ansible_distribution ==  'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: "Install Nginx for FreeBSD"
+  pkgng:
+    name: nginx
+    state: present
+  when: ansible_distribution == 'FreeBSD'
+
+- name: "Install Nginx for OpenBSD"
+  openbsd_pkg:
+    name: nginx
+    state: present
+  when: ansible_distribution ==  "OpenBSD"
+
+

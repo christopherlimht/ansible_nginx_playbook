@@ -1,0 +1,5 @@
+---
+# vars file for backup_nginx
+
+vars:
+  desintation : './'
