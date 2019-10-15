@@ -4,6 +4,7 @@
 - name: "copy nginx config"
   become: yes
   copy:
-    src: /etc/nginx/nginx.conf
-    dest: /etc/nginx/nginx.conf.bak
+    src: '{{ src }}'
+    dest: '{{ destination }}'
     remote_src: yes
+    follow: yes

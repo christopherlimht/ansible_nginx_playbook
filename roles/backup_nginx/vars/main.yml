@@ -1,5 +1,5 @@
 ---
 # vars file for backup_nginx
 
-vars:
-  desintation : './'
+destination : /etc/nginx/nginx.conf.bak
+src: /etc/nginx/nginx.conf

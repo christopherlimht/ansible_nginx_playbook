@@ -2,3 +2,4 @@
 - hosts: nginx
   roles:
     - {role: install_nginx}
+    - {role: backup_nginx}
