@@ -1,0 +1,7 @@
+---
+# handlers file for config_nginx
+- name: restart_nginx
+  become: yes
+  service:
+    name: nginx
+    state: restarted

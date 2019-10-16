@@ -3,3 +3,4 @@
   roles:
     - {role: install_nginx}
     - {role: backup_nginx}
+    - {role: config_nginx}

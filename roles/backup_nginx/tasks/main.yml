@@ -4,9 +4,6 @@
   stat:
     path: '{{ src }}'
   register: nginx_config
-  
-- debug: 
-    var: "{{ nginx_config.stat.exists }}"
 
 - name: "copy nginx config"
   become: yes
@@ -16,4 +13,13 @@
     remote_src: yes
     follow: yes
   when: nginx_config.stat.exists == true
+
+- name: "check whether if config has been backed up successfully"
+  stat:
+    path: '{{ destination }}'
+  register: nginx_config_bak
+
+- debug: 
+    msg: Nginx config file has been backed up successfully
+  when: nginx_config_bak.stat.exists == true
   

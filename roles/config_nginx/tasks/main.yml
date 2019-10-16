@@ -1,0 +1,14 @@
+---
+# tasks file for config_nginx
+- name: Implement custom port to Nginx
+  become: yes
+  template:
+    src: templates/nginx_port.conf
+    dest: "/etc/nginx/nginx.conf"
+  notify: restart_nginx
+
+- service_facts:
+  register: services_state
+
+- debug:
+    var: services_state.ansible_facts.services["nginx.service"]

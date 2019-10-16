@@ -1,29 +1,22 @@
 ---
 # tasks file for install_nginx
-- name: "Install Nginx for CentOS/RedHat"
+- name: "Install Nginx"
   become: yes
-  yum:
+  package:
     name: nginx
     state: present
-  when: ansible_distribution == 'CentOS' or ansible_distribution == 'RedHat'
   notify: 
     - start_nginx
-- name: "Install Nginx for Debian/Ubuntu"
-  apt:
+
+- name: "Start Nginx"
+  become: yes
+  service:
     name: nginx
-    state: latest
-  when: ansible_distribution ==  'Debian' or ansible_distribution == 'Ubuntu'
+    state: started
 
-- name: "Install Nginx for FreeBSD"
-  pkgng:
-    name: nginx
-    state: present
-  when: ansible_distribution == 'FreeBSD'
+- name: "check nginx status"
+  command: service nginx status
+  register: nginx_var
 
-- name: "Install Nginx for OpenBSD"
-  openbsd_pkg:
-    name: nginx
-    state: present
-  when: ansible_distribution ==  "OpenBSD"
-
-
+- debug:
+    var: '{{nginx_var}}'
