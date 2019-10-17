@@ -5,18 +5,22 @@
   package:
     name: nginx
     state: present
-  notify: 
-    - start_nginx
+  
+- name: "Checking whether if nginx is running"
+  service_facts:
+  register: services_state
 
 - name: "Start Nginx"
   become: yes
   service:
     name: nginx
     state: started
+  when: services_state.ansible_facts.services["nginx.service"].state != 'running'
 
-- name: "check nginx status"
-  command: service nginx status
-  register: nginx_var
+- name: "Check whether if nginx has been started successfully"
+  service_facts:
+  register: services_state
 
 - debug:
-    var: '{{nginx_var}}'
+    msg: "Nginx is running successfully"
+  when: services_state.ansible_facts.services["nginx.service"].state == 'running'
